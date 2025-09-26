@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quero Doar - Doe Amor</title>
+    <link rel="stylesheet" href="css/doar.css">
+    
+</head>
+<body class="page-doar">
+    <header>
+        <div class="container">
+            <a href="/" class="brand">Doe Amor.</a>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="sobre.html">Sobre</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <div class="container">
+            <section class="donation-page">
+                <div class="donation-form-section">
+                    <h2>Cadastre-se e doe alegria!</h2>
+                    <form action="#" method="POST" class="donation-form">
+                        <input type="text" name="nome" placeholder="Nome Completo" required>
+                        <input type="email" name="email" placeholder="E-mail" required>
+                        <input type="tel" name="telefone" placeholder="Telefone/WhatsApp" required>
+                        <input type="text" name="cidade" placeholder="Cidade" required>
+                        <input type="text" name="bairro" placeholder="Bairro" required>
+
+                        <fieldset>
+                            <legend>O que deseja doar?</legend>
+                            <div class="checkbox-group">
+                                <label><input type="checkbox" name="doacao[]" value="livros"> Livros</label>
+                                <label><input type="checkbox" name="doacao[]" value="roupas"> Roupas</label>
+                                <label><input type="checkbox" name="doacao[]" value="brinquedos"> Brinquedos</label>
+                            </div>
+                        </fieldset>
+
+                        <textarea name="descricao" placeholder="Descrição da Doação" rows="6"></textarea>
+                        <button type="submit" class="btn">Enviar Doação</button>
+                    </form>
+                </div>
+                <div class="donation-image-section">
+                    <img src="images/criancas-com-doacoes1.png" alt="Crianças felizes segurando caixas com brinquedos doados" class="kid-img">
+                    <img src="images/criancas-com-doacoes2.png" alt="Crianças felizes segurando caixas com brinquedos doados" class="kid-img">
+                </div>
+            </section>
+        </div>
+    </main>
+</body>
+</html>
