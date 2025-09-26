@@ -1,0 +1,284 @@
+/* =========================
+   0) Fonte & Reset
+========================= */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800;900&display=swap');
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { height: 100%; }
+body {
+  font-family: "Poppins", system-ui, -apple-system, "Segoe UI", Roboto, Ubuntu, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+  color: #0f172a;
+  line-height: 1.6;
+  position: relative;         /* necessário para os pseudo-elementos globais */
+  isolation: isolate;
+}
+
+/* =========================
+   1) Design Tokens
+========================= */
+:root{
+  /* Cores */
+  --blue:  #007CD0;   /* títulos azuis */
+  --pink:  #F0706F;   /* botão */
+  --pink-dark:#E45F5F;
+  --gold:  #F7C948;   /* barra do nav */
+  --cream: #FFF3C4;   /* faixa superior (hero background) */
+  --text:  #0F172A;
+  --muted: #374151;
+
+  /* Layout */
+  --container: 1100px;
+  --radius: 24px;
+  --shadow: 0 10px 30px rgba(0,0,0,.12);
+
+  /* Alturas das faixas (ajuste só estes valores) */
+  --cream-height-mobile: 60vh;  /* creme no mobile */
+  --cream-height-desktop: 50vh; /* creme no desktop (você pediu “mais para baixo”) */
+}
+
+/* =========================
+   2) Plano de Fundo Global
+   (faixa creme + chão)
+========================= */
+/* Creme vindo do topo (fica atrás de tudo) */
+body::before{
+  content:"";
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: var(--cream-height-mobile);
+  background: var(--cream);
+  z-index: 0;
+}
+
+/* “Chão” laranja começando onde o creme termina */
+body::after{
+  content:"";
+  position: fixed;
+  left: 0; right: 0; bottom: 0;
+  top: var(--cream-height-mobile);
+  background:
+    radial-gradient(120% 70% at 50% 0%, rgba(255,255,255,.35) 0%, rgba(255,255,255,0) 60%),
+    linear-gradient(180deg, #FFD06B 0%, #F3B24B 55%, #E39A34 100%);
+  box-shadow: inset 0 12px 34px rgba(0,0,0,.10);
+  z-index: -1;
+}
+
+@media (min-width: 700px){
+  body::before{ height: var(--cream-height-desktop); }
+  body::after { top:    var(--cream-height-desktop); }
+}
+
+/* =========================
+   3) Containers & Utilitários
+========================= */
+.container{ max-width: var(--container); margin-inline: auto; padding-inline: 16px; }
+
+/* =========================
+   4) Header / Nav
+========================= */
+header{
+  position: sticky; top: 0; z-index: 1000;     /* sempre por cima */
+  background: var(--gold);
+  border-bottom: none;
+  box-shadow: 0 2px 8px rgba(0,0,0,.08);
+}
+header nav{
+  max-width: var(--container);
+  margin-inline: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;      /* centraliza os links */
+  gap: 18px;
+  padding: 10px 16px;
+}
+header nav ul{
+  list-style: none;
+  display: flex; gap: 18px;
+}
+header nav li{ list-style: none; }
+header nav a{
+  text-decoration: none;
+  color: #111827;
+  font-weight: 700;
+  padding: 8px 12px;
+  border-radius: 999px;
+}
+header nav a:hover{ background: rgba(255,255,255,.5); }
+
+/* =========================
+   5) Hero
+========================= */
+.hero{
+  /* sem fundo próprio — usa o creme global */
+  background: transparent;
+  border-radius: 0;
+  margin: 16px auto;
+  padding: 24px 16px 20px;
+  display: grid;
+  grid-template-columns: 1fr;   /* mobile: 1 coluna */
+  gap: 20px;
+  place-items: center;
+}
+.hero-text{ text-align: center; max-width: 760px; }
+.hero-text h1{
+  font-size: clamp(38px, 9vw, 64px);
+  line-height: 1.1;
+  font-weight: 900;
+  color: var(--blue);
+  margin-bottom: 6px;
+}
+.hero-text h2{
+  font-size: clamp(24px, 6.5vw, 42px);
+  color: var(--blue);
+  font-weight: 900;
+  line-height: 1.15;
+  margin-bottom: 10px;
+}
+.hero-text p{
+  font-size: clamp(15px, 4vw, 18px);
+  color: #111827;
+  font-weight: 600;
+  margin-bottom: 18px;
+}
+
+/* Botão (use class="btn" no HTML) */
+.btn{
+  display: inline-block;
+  background: var(--pink);
+  color: #fff;
+  font-weight: 800;
+  text-decoration: none;
+  border: 0;
+  border-radius: 999px;
+  padding: 16px 28px;
+  font-size: clamp(16px, 4.5vw, 20px);
+  box-shadow: 0 14px 28px rgba(240,112,111,.38);
+  transition: transform .08s ease, background .2s ease;
+}
+.btn:hover{ background: var(--pink-dark); transform: translateY(-1px); }
+.btn:active{ transform: translateY(0); }
+
+.hero-image{ width: 100%; display: grid; place-items: center; }
+.hero-image img{
+  width: min(580px, 100%);
+  height: auto;
+  filter: drop-shadow(0 20px 40px rgba(0,0,0,.12));
+}
+
+/* Desktop: 2 colunas e microajustes */
+@media (min-width: 1024px){
+  .hero{
+    grid-template-columns: 1.05fr .95fr;
+    padding: 56px 40px 24px;
+  }
+  .hero-text{ text-align: left; max-width: 720px; }
+  .hero-text h1{ font-size: clamp(44px, 5vw, 68px); }
+  .hero-text h2{ font-size: clamp(26px, 3.2vw, 44px); }
+  .hero-image img{ transform: translateY(6px); } /* assenta no “chão” */
+}
+
+/* =========================
+   6) Itens para Doar
+========================= */
+/* Sem bloco cartão: só os três círculos + rótulo em uma área “livre” */
+.items-wrap{
+  background: transparent;
+  padding: 18px 0 24px;
+  margin: 0 auto 8px;
+}
+.items-to-donate{
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  align-items: center;
+  justify-items: center;
+}
+.items-to-donate .item{
+  background: transparent;
+  box-shadow: none;
+  text-align: center;
+  padding: 0;
+  color: var(--text);
+}
+
+.icon-background{
+  width: 96px; height: 96px;
+  border-radius: 50%;
+  margin: 0 auto 10px;
+  display: grid; place-items: center;
+  background: #ffffffaa;           /* base neutra translúcida */
+  backdrop-filter: blur(2px);
+  box-shadow: inset 0 6px 16px rgba(0,0,0,.06), 0 10px 22px rgba(0,0,0,.10);
+}
+.items-to-donate .item:nth-child(1) .icon-background{
+  background: radial-gradient(circle at 30% 30%, #FFF0C9, #FFD073);
+}
+.items-to-donate .item:nth-child(2) .icon-background{
+  background: radial-gradient(circle at 30% 30%, #E6F2FF, #A8D3FF);
+}
+.items-to-donate .item:nth-child(3) .icon-background{
+  background: radial-gradient(circle at 30% 30%, #FFE7F3, #FFB2D8);
+}
+.icon-background img{ width: 60%; height: auto; }
+
+.items-to-donate h3{
+  margin-top: 8px;
+  font-size: 16px;
+  font-weight: 800;
+  color: var(--text);
+}
+
+/* espaçamento/escala em telas grandes */
+@media (min-width: 1024px){
+  .items-to-donate{
+    grid-template-columns: repeat(3, minmax(220px, 1fr));
+    gap: 28px;
+  }
+  .items-to-donate h3{ font-size: 18px; }
+}
+
+/* =========================
+   7) Footer
+========================= */
+footer{
+  text-align: center;
+  color: var(--muted);
+  font-size: 14px;
+  padding: 16px 12px 26px;
+  background: transparent;
+}
+/* === FIX: fundos sempre atrás do conteúdo === */
+body::before, body::after{
+  position: fixed;
+  left: 0; right: 0;
+  pointer-events: none;      /* não intercepta cliques/hover */
+}
+
+body::before{                /* creme do topo */
+  top: 0;
+  height: var(--cream-height-mobile);
+  z-index: -2 !important;    /* atrás de todo o conteúdo */
+}
+
+body::after{                 /* “chão” laranja */
+  bottom: 0;
+  top: var(--cream-height-mobile);
+  z-index: -3 !important;    /* ainda mais atrás */
+}
+
+/* manter alturas no desktop */
+@media (min-width:700px){
+  body::before{ height: var(--cream-height-desktop); }
+  body::after { top:    var(--cream-height-desktop); }
+}
+
+/* garantia de cor de texto visível */
+body, .hero-text, .items-to-donate .item, footer{
+  color: #0f172a;
+}
+
+/* opcional: caso algum container tenha z-index negativo por engano */
+main, .container, .hero, .items-wrap{
+  position: relative;
+  z-index: 1;
+}
